@@ -1,0 +1,2 @@
+/* Message Queue */
+package mq
