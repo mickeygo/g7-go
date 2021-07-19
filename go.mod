@@ -10,6 +10,7 @@ require (
 	github.com/goburrow/serial v0.1.0 // indirect
 	github.com/gopcua/opcua v0.1.13
 	github.com/gorilla/websocket v1.4.2
+	github.com/robfig/cron/v3 v3.0.1
 	github.com/robinson/gos7 v0.0.0-20210611070709-fa6e76955895
 	github.com/streadway/amqp v1.0.0
 	github.com/tarm/serial v0.0.0-20180830185346-98f6abe2eb07 // indirect
