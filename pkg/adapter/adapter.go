@@ -6,12 +6,24 @@ var (
 	protocals = [...]string{"modbustcp", "opcua", "s7"}
 )
 
-func checkProtocal(protocal string) bool {
+type adapter struct {
+	protocol string
+}
+
+func (apt *adapter) read() ([]byte, error) {
+	if strings.EqualFold(apt.protocol, "modbustcp") {
+		// TODO: handle the modbustcp.
+	}
+
+	return nil, nil
+}
+
+// must be the one of protocols
+func checkProtocal(protocol string) bool {
 	pass := false
 	for _, v := range protocals {
-		if strings.EqualFold(protocal, v) {
+		if strings.EqualFold(protocol, v) {
 			pass = true
-
 			break
 		}
 	}
