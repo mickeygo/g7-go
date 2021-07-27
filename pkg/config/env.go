@@ -1,8 +1,9 @@
-package configs
+package config
 
 import (
-	"errors"
+	"fmt"
 
+	"github.com/mickeygo/go-g7/pkg/errcode"
 	"github.com/spf13/viper"
 )
 
@@ -17,7 +18,7 @@ func init() {
 
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			err := errors.New("Config file '" + path + "' not found.")
+			err := fmt.Errorf("[%d] %s", errcode.Err_File_Config_Not_Found, err.Error())
 			panic(err)
 		} else {
 			panic(err)

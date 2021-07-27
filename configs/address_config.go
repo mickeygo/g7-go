@@ -1,11 +1,17 @@
 package configs
 
-// Item 数据配置项
-type Item struct {
+// Address 地址数据
+type Address struct {
+	// 唯一编号
 	Code string `json:"code"`
+	// 地址
 	Addr uint16 `json:"addr"`
-	Len  uint16 `json:"len"`
+	// 长度
+	Len uint16 `json:"len"`
+	// 数据类型 int|real|string
 	Type string `json:"type"`
+	// 描述
+	Desc string `json:"desc"`
 }
 
 // ReadArea 读区间，用于一次性读取
@@ -28,7 +34,7 @@ type area struct {
 
 // span 数据区域最小单元块
 type span struct {
-	start uint16
+	addr  uint16
 	vlen  uint8
 	vtype string // int|real|string
 }
