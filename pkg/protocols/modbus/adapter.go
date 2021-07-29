@@ -1,7 +1,7 @@
 package modbus
 
 import (
-	"sync"
+	"log"
 	"time"
 
 	"github.com/goburrow/modbus"
@@ -18,8 +18,6 @@ type AdapterConfig struct {
 type modbusAdapter struct {
 	handler *modbus.TCPClientHandler
 	client  modbus.Client
-
-	mu sync.Mutex
 }
 
 // NewModbusTCPAdapter creates an new TCP adapter
@@ -27,24 +25,25 @@ func NewModbusTCPAdapter(conf AdapterConfig) *modbusAdapter {
 	handler := modbus.NewTCPClientHandler(conf.Addr)
 	handler.SlaveId = conf.SlaveId
 	handler.Timeout = conf.Timeout
-	client := modbus.NewClient(handler)
+	handler.Logger = log.Default()
 
+	client := modbus.NewClient(handler)
 	return &modbusAdapter{handler: handler, client: client}
 }
 
 // Connect connects the modbus server.
-func (adapter *modbusAdapter) Connect() error {
-	err := adapter.handler.Connect()
+func (apt *modbusAdapter) Connect() error {
+	err := apt.handler.Connect()
 	return err
 }
 
-// ReadHoldingRegisters 
-func (adapter *modbusAdapter) ReadHoldingRegisters(address uint16, number uint16) ([]byte, error) {
-	buffer, err := adapter.client.ReadHoldingRegisters(address, number)
+// ReadHoldingRegisters
+func (apt *modbusAdapter) ReadHoldingRegisters(address uint16, number uint16) ([]byte, error) {
+	buffer, err := apt.client.ReadHoldingRegisters(address, number)
 	return buffer, err
 }
 
 // Close closes the TCP connection.
-func (adapter *modbusAdapter) Close() {
-	adapter.handler.Close()
+func (apt *modbusAdapter) Close() {
+	apt.handler.Close()
 }
